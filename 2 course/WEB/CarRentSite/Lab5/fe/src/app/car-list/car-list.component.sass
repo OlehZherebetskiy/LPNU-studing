@@ -1,0 +1,167 @@
+
+.car-list-panel
+    display: flex
+    height: 100%
+    width: 100%
+    margin-top: 60px
+    flex-direction: column
+    li::marker
+        display: none
+    .car-panel-list
+        margin-top: 200px
+        @media screen and (max-width: 600px)
+            margin-top: 0px
+    .car-panel-small
+        transition: background-color 0.2s, margin 0.2s
+        height: 100%
+        width: calc(96% - 20px)
+        @media screen and (max-width: 600px)
+            width: 67%
+        flex-direction: row
+        @media screen and (max-width: 600px)
+            flex-direction: column
+        padding: 10px
+        background-color: #2d2d7c63
+        border-color: #2d2d7cee
+        margin: 30px
+        border-radius: 10px
+
+        .car__img
+            transition: height 0.2s, width 0.2s,  margin-right 0.2s, margin-left 0.2s
+            flex: 1
+            height: 15vh
+            width: 22vh
+            display: inline-block
+            margin-right: 30px
+            margin-left: 30px
+        .car-panel__info
+            flex: 1
+            display: inline-block
+            .car-panel__info__span
+                i
+                    font-size: 12px !important
+                    transition: font-size 0.2s
+                font-size: 12px
+                background-color: #2d2d7c5a
+                border-color: #2d2d7cff
+                display: block
+                margin: 10px 0
+                color: #ffffff52 
+                border-radius: 10px
+        &:hover
+            height: 100%
+            width: 96%
+            @media screen and (max-width: 600px)
+                width: 87%
+            flex-direction: row
+            @media screen and (max-width: 600px)
+                flex-direction: column
+            padding: 10px
+            background-color: #1212bebb
+            border-color: #2d2d7c9a
+            margin: 10px 0
+            border-radius: 10px
+
+            .car__img
+                flex: 1
+                height: 25vh
+                width: 32vh
+                display: inline-block
+                margin-right: 25px
+                margin-left: 25px
+            .car-panel__info
+                flex: 1
+                display: inline-block
+                .car-panel__info__span
+                    i
+                        font-size: 20px !important
+                    font-size: 18px
+                    background-color: #5151c5b7
+                    border-color: #2d2d7cff
+                    display: block
+                    margin: 10px 0
+                    color: #ffffff52 
+                    border-radius: 10px
+
+    .car-filter
+        width: 90%
+        @media screen and (max-width: 600px)
+            width: fit-content
+        margin-left: 40px
+        margin-right: 40px
+        padding: 10px
+        background-color: #3e26a8ea
+        border-color: #1a298b
+        border: 2px
+        color: #ffffff52
+        border-radius: 10px
+        @media screen and (min-width: 600px)
+            position: fixed
+
+        .item-column
+            width: -webkit-fill-available
+
+        .nav
+            display: flex
+            flex-direction: row
+            align-self: center
+            justify-content: center
+        label 
+            padding: 1px 5px
+        .label--filter
+            min-width: 125px
+        .radio--filter
+            flex: 1
+            align-self: center
+            justify-content: center
+        input
+            background-color: #2d2d7c9a
+            border-color: #2d2d7cff
+            color: #ffffff52
+
+        select
+            background-color: #2d2d7c9a
+            border-color: #0c0c2f75
+            color: #ffffff52
+            min-width: 190px
+        button
+            margin-top: 5px
+            width: inherit
+            border-radius: 15px
+            background-color: #2d2d7c9a
+            border-color: #0f0f64
+            color: #ffffff52
+    .car-panel
+        display: flex
+        height: 100%
+        width: 100%
+        flex-direction: column
+        @media screen and (min-width: 600px)
+            flex-direction: row
+        .car-panel__column
+            flex: 1
+            align-self: center
+            justify-content: center
+            .car__img
+                margin-top: 100px
+                height: 25vh
+                width: 30vh
+                @media screen and (min-width: 600px)
+                    margin-top: 0px
+                    margin-left: 100px
+                    height: 33vh
+                    width: 40vh
+            .car-panel__info
+                display: flex
+                flex: 1
+                flex-direction: column
+                height: 100%
+                justify-content: center
+                
+                .car-panel__info__span
+                    margin-left: 40px
+                    background-color: #2d2d7c5a
+                    border-color: #2d2d7cff
+                    margin: 10px 0
+                    color: #ffffff52 
+                    border-radius: 10px

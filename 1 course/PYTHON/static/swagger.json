@@ -1,0 +1,538 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "server",
+    "version": "1.0.0",
+    "title": "Swagger for my server",
+    "contact": {
+      "email": "olehvel@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+   "basePath":"/",
+  "servers": [
+    {
+      "url": "/",
+      "description": "Local Dev"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json",
+    "application/x-www-form-urlencoded"
+  ],
+  "produces": [
+    "application/json",
+    "application/x-www-form-urlencoded"
+  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "paths": {
+    "/getallart/": {
+      "get": {
+        "summary": "All articles",
+        "tags": [
+          "User Doc Request"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+               "type": "array",
+               "items": {
+                 "type": "object",
+                 "properties": {
+                    "title": {
+                     "type": "string"
+                   },
+                   "_id": {
+                     "type": "string"
+                   }
+                 }
+               }
+            }
+          },
+           "404": {
+             "description": "Not found"
+           },
+           "403": {
+             "description": "Forbidden Error"
+           }
+        }
+      }
+    },
+    "/getarttext/": {
+      "post": {
+        "summary": "Article text",
+        "tags": [
+          "User Doc Request"
+        ],
+        "parameters": [
+          {
+            "name": "Doc",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+               "properties": {
+                  "title": {
+                   "type": "string"
+                 }
+               }
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+               "properties": {
+                 "username": {
+                   "type": "string"
+                 },
+                  "title": {
+                   "type": "string"
+                 },
+                 "text": {
+                   "type": "string"
+                 }
+               }
+            }
+          },
+           "404": {
+             "description": "Not found"
+           },
+           "403": {
+             "description": "Forbidden Error"
+           }
+        }
+      }
+    },
+    "/userputmarge/": {
+       "put": {
+         "summary": "Put for marge",
+         "tags": [
+           "User Request to Moderator"
+         ],
+         "parameters": [
+           {
+             "name": "Doc",
+             "in": "body",
+             "required": false,
+             "schema": {
+               "type": "object",
+               "properties": {
+                 "username": {
+                   "type": "string"
+                 },
+                  "title": {
+                   "type": "string"
+                 },
+                 "text": {
+                   "type": "string"
+                 }
+               }
+             }
+           }
+         ],
+         "responses": {
+           "200": {
+             "description": "OK"
+           },
+           "404": {
+             "description": "Not found"
+           },
+           "403": {
+             "description": "Forbidden Error"
+           }
+         }
+       }},
+"/useraddart/": {
+       "put": {
+         "summary": "Put new art",
+         "tags": [
+           "User Doc Request"
+         ],
+         "parameters": [
+           {
+             "name": "Doc",
+             "in": "body",
+             "required": false,
+             "schema": {
+               "type": "object",
+               "properties": {
+                 "username": {
+                   "type": "string"
+                 },
+                  "title": {
+                   "type": "string"
+                 },
+                 "text": {
+                   "type": "string"
+                 }
+               }
+             }
+           }
+         ],
+         "responses": {
+           "200": {
+             "description": "OK"
+           },
+           "404": {
+             "description": "Not found"
+           },
+           "403": {
+             "description": "Forbidden Error"
+           }
+         }
+       }},
+
+
+
+
+
+    "/mod/getallart/": {
+      "get": {
+        "summary": "All articles",
+        "tags": [
+          "Moderator requests"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/allarticles"
+            }
+          },
+           "404": {
+             "description": "Not found"
+           },
+           "403": {
+             "description": "Forbidden Error"
+           }
+        }
+      }
+    },
+    "/mod/getrequestart/": {
+      "get": {
+        "summary": "Requested articles",
+        "tags": [
+          "Moderator requests"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/allarticles"
+            }
+          },
+           "404": {
+             "description": "Not found"
+           },
+           "403": {
+             "description": "Forbidden Error"
+           }
+        }
+      }
+    },
+    "/mod/getarttext/": {
+      "post": {
+        "summary": "Article text",
+        "tags": [
+          "Moderator requests"
+        ],
+        "parameters": [
+          {
+            "name": "Doc",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+               "properties": {
+                  "title": {
+                   "type": "string"
+                 }
+               }
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/allarticles"
+            }
+          },
+           "404": {
+             "description": "Not found"
+           },
+           "403": {
+             "description": "Forbidden Error"
+           }
+        }
+      }
+    },
+    "/mod/modmarge/": {
+       "put": {
+         "summary": "Marge",
+         "tags": [
+           "Moderator requests"
+         ],
+         "parameters": [
+           {
+             "name": "Doc",
+             "in": "body",
+             "required": false,
+             "schema": {
+               "$ref": "#/definitions/article"
+             }
+           }
+         ],
+         "responses": {
+           "200": {
+             "description": "OK"
+           },
+           "404": {
+             "description": "Not found"
+           },
+           "403": {
+             "description": "Forbidden Error"
+           }
+         }
+       }},
+    "/mod/moddel/": {
+       "delete": {
+         "summary": "Del art",
+         "tags": [
+           "Moderator requests"
+         ],
+         "parameters": [
+           {
+             "name": "Doc",
+             "in": "body",
+             "required": false,
+             "schema": {
+               "type": "object",
+               "properties": {
+                 "title": {
+                   "type": "string"
+                 },
+                 "username": {
+                   "type": "string"
+                 },
+                 "requested": {
+                   "type": "boolean"
+                 }
+               }
+             }
+           }
+         ],
+         "responses": {
+           "200": {
+             "description": "OK"
+           },
+           "404": {
+             "description": "Not found"
+           }
+         }
+       }},
+
+
+
+
+
+"/user/log/": {
+       "post": {
+         "summary": "Log in",
+         "tags": [
+           "User auth"
+         ],
+         "parameters": [
+           {
+             "name": "user",
+             "in": "body",
+             "required": false,
+             "schema": {
+               "type": "object",
+               "properties": {
+                 "username": {
+                   "type": "string"
+                 },
+                 "password": {
+                   "type": "string"
+                 }
+               }
+             }
+           }
+         ],
+         "responses": {
+           "200": {
+             "description": "OK",
+             "schema": {
+               "$ref": "#/definitions/user"
+             }
+           },
+           "404": {
+             "description": "Not found"
+           },
+           "403": {
+             "description": "Forbidden Error"
+           }
+         }
+       }}
+  ,
+  "/user/reg/": {
+       "post": {
+         "summary": "User reg",
+         "tags": [
+           "User auth"
+         ],
+         "parameters": [
+           {
+             "name": "user",
+             "in": "body",
+             "required": false,
+             "schema": {
+               "type": "object",
+               "properties": {
+                 "username": {
+                   "type": "string"
+                 },
+                 "password": {
+                   "type": "string"
+                 }
+               }
+             }
+           }
+         ],
+         "responses": {
+           "200": {
+             "description": "OK",
+             "schema": {
+               "$ref": "#/definitions/user"
+             }
+           },
+           "404": {
+             "description": "Not found"
+           },
+           "403": {
+             "description": "Forbidden Error"
+           }
+         }
+       }},
+
+  "/mod/givemoder/": {
+       "put": {
+         "summary": "Give user moder",
+         "tags": [
+           "User to moderator"
+         ],
+         "parameters": [
+           {
+             "name": "user",
+             "in": "body",
+             "required": false,
+             "schema": {
+               "type": "object",
+               "properties": {
+                 "username": {
+                   "type": "string"
+                 }
+               }
+             }
+           }
+         ],
+         "responses": {
+           "200": {
+             "description": "OK",
+             "schema": {
+               "$ref": "#/definitions/user"
+             }
+           },
+           "404": {
+             "description": "Not found"
+           },
+           "403": {
+             "description": "Forbidden Error"
+           }
+         }
+       }}
+  }
+  ,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     "definitions": {
+       "article": {
+         "type": "object",
+         "properties": {
+           "username": {
+             "type": "string"
+           },
+            "title": {
+             "type": "string"
+           },
+           "text": {
+             "type": "string"
+           },
+           "requested": {
+             "type": "boolean"
+           },
+           "patron_id": {
+             "type": "string"
+           }
+         }
+       },
+       "user": {
+         "type": "object",
+         "properties": {
+           "username": {
+             "type": "string"
+           },
+           "moderator": {
+             "type": "boolean"
+           },
+           "_id": {
+             "type": "string"
+           }
+         }
+       }
+     }
+   }
+

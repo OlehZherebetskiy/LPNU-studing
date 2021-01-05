@@ -1,0 +1,154 @@
+html {
+  height: 100%;
+}
+
+body {
+  background-image: url(https://cutewallpaper.org/21/black-car-wallpaper/Dark-Cars-Windows-10-Theme-themepack.me.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100%;
+}
+
+.sign-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.sign-panel .svg-sign {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.sign-panel .sign__form {
+  width: 100%;
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.sign-panel .sign__form .sign__form__span {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 40px;
+}
+
+.sign-panel .sign__form .input-group--sign {
+  display: block;
+}
+
+.sign-panel .sign__form .input-group--sign .input-text--sign {
+  padding: 5px;
+  width: 70%;
+  font-weight: 200;
+  font-size: 18px;
+  line-height: 40px;
+  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+  border: 0px;
+  border-bottom: 1px solid #007bff;
+}
+
+.sign-panel .sign__form .input-group--sign .input-text--sign::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.sign-panel .sign__form .input-group--sign .input-text--sign:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.sign-panel .sign__form .input-group--sign .input-text--sign::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.sign-panel .sign__form .input-group--sign .input-text--sign::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.sign-panel .sign__form .input-group--sign .input-text--sign:focus {
+  outline: none;
+}
+
+.sign-panel .sign__form .btn-group--sign {
+  margin-top: 30px;
+}
+
+.sign-panel .sign__form .btn-group--sign .btn--sign {
+  width: 267px;
+  height: 40px;
+  background: rgba(0, 32, 212, 0.23);
+  border-radius: 20px;
+  font-family: Roboto;
+  color: rgba(255, 255, 255, 0.57);
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.sign-panel .sign__form .btn-group--sign .btn-disable--sign {
+  background: rgba(188, 142, 233, 0.69);
+  color: rgba(255, 255, 255, 0.363);
+  cursor: no-drop;
+  pointer-events: none;
+}
+
+.msg__form__span {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  display: block;
+  font-size: 15px;
+  line-height: 40px;
+  margin-top: -6px;
+}
+
+.input-success--registration {
+  color: rgba(68, 253, 176, 0.795) !important;
+  border-bottom: 2px solid rgba(0, 255, 34, 0.692) !important;
+}
+
+.input-danger--registration {
+  color: rgba(248, 107, 138, 0.808) !important;
+  border-bottom: 2px solid rgba(255, 0, 0, 0.466) !important;
+}
+
+.form-control-feedback--registration {
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(255, 89, 89, 0.795);
+}
+
+.form-control-feedback--registration p {
+  margin-top: -3px;
+  margin-bottom: -17px;
+}
+
+.btn-disable--registration {
+  background: rgba(226, 226, 226, 0.5) !important;
+  color: rgba(0, 0, 0, 0.89) !important;
+  cursor: no-drop;
+  pointer-events: none;
+}
+/*# sourceMappingURL=registration.css.map */

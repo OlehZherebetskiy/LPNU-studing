@@ -1,0 +1,36 @@
+
+
+.profile-panel    
+    display: flex
+    height: 100%
+    width: 100%
+    flex-direction: column
+    @media screen and (min-width: 600px)
+        flex-direction: row
+    .profile-panel__column
+        flex: 1
+        align-self: center
+        justify-content: center
+        .profile__ava
+            margin-top: 100px
+            height: 30vh
+            width: 30vh
+            @media screen and (min-width: 600px)
+                margin-left: 100px
+                margin-top: 0px
+                height: 40vh
+                width: 40vh
+            border-radius: 50%
+        .profile-panel__info
+            display: flex
+            flex: 1
+            flex-direction: column
+            height: 100%
+            justify-content: center
+            align-items: center
+            .profile-panel__info__btn
+                background-color: #2d2d7c5a
+                border-color: #2d2d7cff
+                margin: 10px 0
+                color: #ffffff52 
+                border-radius: 10px

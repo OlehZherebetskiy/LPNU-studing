@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <form method="post">
+      
+      <br>
+      <br>
+      <ul>
+            <% users.forEach(function(user){ %>
+            <li>
+                <b>
+                <%= user.name %>
+                </b>
+                <br>
+                <%= user.pass %>
+                <br>
+                <br>
+            </li>
+                <% }); %>
+          </ul>
+
+
+
+          <br>
+              
+  </form> 
+</body>
+
+</html>

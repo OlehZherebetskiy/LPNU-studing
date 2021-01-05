@@ -1,0 +1,52 @@
+<div id="car-list-panel" class="car-list-panel">
+            <div class="car-filter text-center">
+                    <!--<div class="nav">
+                        
+                        <label for="allRadioType" ><input id="allRadioType" class="radio--filter" type="radio" name="type" aria-labelledby="allRadioType" value="all">Всі <span>авто</span></label>
+                        
+                        <label for="buRadioType"><input id="buRadioType" class="radio--filter" type="radio" name="type" aria-labelledby="buRadioType" value="bu">Вживані <span>авто</span></label>
+                        
+                        <label for="naRadioType"><input id="naRadioType" class="radio--filter" type="radio" name="type" aria-labelledby="naRadioType" value="na">Нові <span>авто</span></label>
+                        
+                        <label for="orderRadioType"><input id="orderRadioType" class="radio--filter" type="radio" name="type" aria-labelledby="orderRadioType" value="order">Під пригон</label>
+                    </div>-->
+                    <div class="wrapper">
+                            <div class="item-column primary-column">
+                                <div class="m-rows">
+                                    <label class="label--filter">Тип транспорту</label>
+                                    <select class="select--filter" id="types" name="category_id" data-field="category" aria-label="Тип транспорта" data-placeholder="Любой" class="e-form">
+                                        <option value="1">Легкові</option><option value="2">Мото</option><option value="6">Вантажівки</option><option value="5">Причепи</option><option value="4">Спецтехніка</option><option value="10">Сільгосптехніка</option><option value="7">Автобуси</option><option value="3">Водний транспорт</option><option value="9">Повітряний транспорт</option><option value="8">Автобудинки</option></select>
+                                </div>
+                                <div class="m-rows">
+                                    <label class="label--filter">Марка</label>
+                                    <select class="select--filter" id="brands" name="category_id" data-field="category" aria-label="Тип транспорта" data-placeholder="Любой" class="e-form">
+                                        <option value="0">Lada</option>
+                                        <option value="1">BMW</option><option value="2">Audi</option><option value="6">Chevrolet</option><option value="5">Honda</option></select>
+                                </div>
+                                <div class="m-rows">
+                                    <label class="label--filter">Регіон</label>
+                                    <select class="select--filter" id="regions" name="category_id" data-field="category" aria-label="Тип транспорта" data-placeholder="Любой" class="e-form">
+                                        <option value="1">Lviv</option><option value="0">Ukraine</option>
+                                        <option value="2">Lviv region</option></select>
+                                </div>
+                                <button class="btn btn-primary btn--filter">Пошук </button></div>
+                            </div>
+                    </div>
+                
+            <div class="car-panel-list">
+            <ul>
+                <li *ngFor="let car of carlist" id={{car.id}} [attr.about]="car.about" style="display: block">
+                    <a href="../car/{{car.id}}"><div id="car-panel-small" class="car-panel-small">
+                        <img src={{car.url}} class="car__img">
+                        <div class="car-panel__info">
+                            <span class="car-panel__info__span">
+                                <i class='far fa-address-card' style='font-size:20px; width: 33px; padding-right: 10px; '></i>{{car.brand}}</span>
+                            <span class="car-panel__info__span">
+                                <i class='fas fa-at' style='font-size:20px; width: 33px; padding-right: 10px; '></i>{{car.model}}</span>
+                            <span class="car-panel__info__span">
+                                <i class='far fa-address-card' style='font-size:20px; width: 33px; padding-right: 10px; '></i>{{car.year}}</span>
+                        </div>
+                    </div></a>
+                </li>
+            </ul>
+        </div>
