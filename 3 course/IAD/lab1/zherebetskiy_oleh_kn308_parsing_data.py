@@ -44,4 +44,7 @@ dataFrame_weather = pnds.read_csv('DATABASE.csv', sep=';', decimal=',') #зчи�
 dataFrame_weather = parse(dataFrame_weather) #парсимо дані які зчитали
 
 
-plotModule.loop_draw(dataFrame_weather)#запуск циклічного меню по виводу графіків
+plotModule.loop_draw(dataFrame_weather, NumPlots = 1, Dimension = [2],
+                     TypeNum = ['Scatter Plot'], Titles = ['Scatter'],
+                     DataPlot = [['Temperature(F)', 'Wind Speed(mph)']],
+                     Func = ["min"])                                     #запуск циклічного меню по виводу графіків

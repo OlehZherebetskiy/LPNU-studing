@@ -5,19 +5,15 @@ import plotly
 import plotly.express as plotlyExpress
 from plotly.subplots import make_subplots
 
-def loop_draw(dataFrame):
+   
+def loop_draw(dataFrame, NumPlots, Dimension, TypeNum, Titles, DataPlot, Func):
     comand = ''
 
     while comand != 'exit':
         comand = ''
         
-        #чекаємо на введення кількості графіків
-        #якщо exit то завершуємо виконання функції
-        print('\n\n\n\nВведіть кількість графіків (exit - щоб вийти):')
-        comand = str(input())
-        if comand == 'exit':
-            return
-        numPlots = int(comand) #переводимо в правильний тип розмірність графіка
+        
+        
         
         
         dimension = []
@@ -26,102 +22,171 @@ def loop_draw(dataFrame):
         titles = []
         dataPlot = []
         func = []
+        numPlots = 0
         
         
-        for num in range(numPlots):
+        
+        if NumPlots and Dimension and TypeNum and Titles and DataPlot and Func:
+            dimension = Dimension
+            typeNum = TypeNum
+            titles = Titles
+            dataPlot = DataPlot
+            func = Func 
+            numPlots = NumPlots
             
+            for num in range(NumPlots):
+                if typeNum[num] == 'Box Plot':
+                    typeNum[num] = 1
+                elif typeNum[num] == 'Scatter Plot':
+                    typeNum[num] = 2
+                elif typeNum[num] == 'Line Plot':
+                    typeNum[num] = 3
+                elif typeNum[num] == 'Bar Plot':
+                    typeNum[num] = 4
+                elif typeNum[num] == 'Pie Plot':
+                    typeNum[num] = 5
+                    
+            for num in range(NumPlots):
+                if func[num] == 'count':
+                    func[num] = '1'
+                elif func[num] == 'mean':
+                    func[num] = '2'
+                elif func[num] == 'max':
+                    func[num] = '3'
+                elif func[num] == 'min':
+                    func[num] = '4'
+                elif func[num] == 'median':
+                    func[num] = '5'
+                elif func[num] == 'all':
+                    func[num] = '0'
             
-            #чекаємо на введення розмірності графіка
+            for num in range(NumPlots):
+                if typeNum[num]==1 :
+                    specs.append({})
+                elif typeNum[num]==2:
+                    specs.append({'type': 'scatter'})
+                elif typeNum[num]==3:
+                    specs.append({})
+                elif typeNum[num]==4:
+                    specs.append({})
+                elif typeNum[num]==5:
+                    specs.append({'type': 'domain'})
+            
+            for num in range(NumPlots):
+                for elNum in range(len(DataPlot[num])):
+                    DataPlot[num][elNum] = dataFrame[DataPlot[num][elNum]]
+            
+                    
+            
+                    
+        else:
+            #чекаємо на введення кількості графіків
             #якщо exit то завершуємо виконання функції
-            comand = ''
-            while comand not in ['1','2','exit']:
-                if comand != '':
-                    print('ви ввели не коректні дані!!!')
-                print('\nВведіть розмірність графіка №'+str(num)+' (1-2) (exit - щоб вийти):')
-                comand = str(input())
-                if comand == 'exit':
-                    return
-            dimension.append(int(comand)) #переводимо в правильний тип розмірність графіка
-
-
-            
-            #чекаємо на введення типу графіка
-            #якщо exit то завершуємо виконання функції
-            comand = ''
-            while (comand not in ['1','2','3','4','5','exit']) :
-                if comand != '':
-                    print('\n\nви ввели не коректні дані!!!\n\n')
-                print('\nВведіть тип графіка №'+str(num))
-                
-                if dimension[num] == 1 :
-                    print('1) Box Plot')   
-                if dimension[num] == 2 :
-                    print('2) Scatter Plot')
-                    print('3) Line Plot')
-                    print('4) Bar Plot')
-                    print('5) Pie Plot')
-                
-                print('(exit - щоб вийти):')
-                comand = str(input())
-                if comand == 'exit':
-                    return
-            typeNum.append(int(comand)) #переводимо в число тип графіка
-            
-            
-            #задаємо title для графіків
-            if comand == '1':
-                titles.append("Тип графіка Box Plot")
-            elif comand == '2':
-                titles.append("Тип графіка Scatter Plot")    
-            elif comand == '3':
-                titles.append("Тип графіка Line Plot")    
-            elif comand == '4':
-                titles.append("Тип графіка Bar Plot")    
-            elif comand == '5':
-                titles.append("Тип графіка Pie Plot")    
-
-            
-            #для кожного типу свої параметри для specs
-            #та різні доступні усереднення
-            #наприклад для лінійного немає сенсу виводити дані без усередення
-            
-            if typeNum[num]==1 :
-                func.append('')
-                specs.append({})
-            elif typeNum[num]==2:
+            print('\n\n\n\nВведіть кількість графіків (exit - щоб вийти):')
+            comand = str(input())
+            if comand == 'exit':
+                return
+            numPlots = int(comand) #переводимо в правильний тип розмірність графіка
+        
+            for num in range(numPlots):
+                #чекаємо на введення розмірності графіка
+                #якщо exit то завершуємо виконання функції
                 comand = ''
-                while comand not in ['0','1','2','3','4','5']:
+                while comand not in ['1','2','exit']:
                     if comand != '':
                         print('ви ввели не коректні дані!!!')
-                    print('\nВведіть (0-5):\n0)all\n1)count\n2)mean\n3)max\n4)min\n5)median')
+                    print('\nВведіть розмірність графіка №'+str(num)+' (1-2) (exit - щоб вийти):')
                     comand = str(input())
-                func.append(comand)
-                specs.append({'type': 'scatter'})
-            elif typeNum[num]==3:
+                    if comand == 'exit':
+                        return
+                dimension.append(int(comand)) #переводимо в правильний тип розмірність графіка
+
+
+
+                #чекаємо на введення типу графіка
+                #якщо exit то завершуємо виконання функції
                 comand = ''
-                while comand not in ['1','2','3','4','5']:
+                while (comand not in ['1','2','3','4','5','exit']) :
                     if comand != '':
-                        print('ви ввели не коректні дані!!!')
-                    print('\nВведіть (1-5):\n1)count\n2)mean\n3)max\n4)min\n5)median')
+                        print('\n\nви ввели не коректні дані!!!\n\n')
+                    print('\nВведіть тип графіка №'+str(num))
+
+                    if dimension[num] == 1 :
+                        print('1) Box Plot')   
+                    if dimension[num] == 2 :
+                        print('2) Scatter Plot')
+                        print('3) Line Plot')
+                        print('4) Bar Plot')
+                        print('5) Pie Plot')
+
+                    print('(exit - щоб вийти):')
                     comand = str(input())
-                func.append(comand)
-                specs.append({})
-            elif typeNum[num]==4:
-                comand = ''
-                while comand not in ['0','1','2','3','4','5']:
-                    if comand != '':
-                        print('ви ввели не коректні дані!!!')
-                    print('\nВведіть (0-5):\n0)all\n1)count\n2)mean\n3)max\n4)min\n5)median')
-                    comand = str(input())
-                func.append(comand)
-                specs.append({})
-            elif typeNum[num]==5:
-                func.append('')
-                specs.append({'type': 'domain'})
-                
-                
-            #Збераємо всі дані в структуру dataPlot
-            dataPlot.append(dataSelect(dataFrame, dimension[num], typeNum[num], func[num]))
+                    if comand == 'exit':
+                        return
+                typeNum.append(int(comand)) #переводимо в число тип графіка
+
+
+                #задаємо title для графіків
+                if comand == '1':
+                    titles.append("Тип графіка Box Plot")
+                elif comand == '2':
+                    titles.append("Тип графіка Scatter Plot")    
+                elif comand == '3':
+                    titles.append("Тип графіка Line Plot")    
+                elif comand == '4':
+                    titles.append("Тип графіка Bar Plot")    
+                elif comand == '5':
+                    titles.append("Тип графіка Pie Plot")    
+
+
+                #для кожного типу свої параметри для specs
+                #та різні доступні усереднення
+                #наприклад для лінійного немає сенсу виводити дані без усередення
+
+                if typeNum[num]==1 :
+                    func.append('')
+                    specs.append({})
+                elif typeNum[num]==2:
+                    comand = ''
+                    while comand not in ['0','1','2','3','4','5']:
+                        if comand != '':
+                            print('ви ввели не коректні дані!!!')
+                        print('\nВведіть (0-5):\n0)all\n1)count\n2)mean\n3)max\n4)min\n5)median')
+                        comand = str(input())
+                    func.append(comand)
+                    specs.append({'type': 'scatter'})
+                elif typeNum[num]==3:
+                    comand = ''
+                    while comand not in ['1','2','3','4','5']:
+                        if comand != '':
+                            print('ви ввели не коректні дані!!!')
+                        print('\nВведіть (1-5):\n1)count\n2)mean\n3)max\n4)min\n5)median')
+                        comand = str(input())
+                    func.append(comand)
+                    specs.append({})
+                elif typeNum[num]==4:
+                    comand = ''
+                    while comand not in ['0','1','2','3','4','5']:
+                        if comand != '':
+                            print('ви ввели не коректні дані!!!')
+                        print('\nВведіть (0-5):\n0)all\n1)count\n2)mean\n3)max\n4)min\n5)median')
+                        comand = str(input())
+                    func.append(comand)
+                    specs.append({})
+                elif typeNum[num]==5:
+                    comand = ''
+                    while comand not in ['0','1','2','3','4','5']:
+                        if comand != '':
+                            print('ви ввели не коректні дані!!!')
+                        print('\nВведіть (0-5):\n0)all\n1)count\n2)mean\n3)max\n4)min\n5)median')
+                        comand = str(input())
+                    func.append(comand)
+                    specs.append({'type': 'domain'})
+
+
+                #Збераємо всі дані в структуру dataPlot
+                dataPlot.append(dataSelect(dataFrame, dimension[num], typeNum[num], func[num]))
+        
         
         
         
@@ -147,6 +212,9 @@ def loop_draw(dataFrame):
         
         #Будемо зберігати і виводити графіки в html для зручності 
         plotly.offline.plot(fig, auto_open=True)
+        
+        if NumPlots and Dimension and TypeNum and Titles and DataPlot and Func:
+            break
 
         
         
@@ -191,7 +259,7 @@ def dataSelect(dataFrame, dimension, typeNum, funcNum):
     dataPlot = []
     
     # для count потрібно тільки одну колонку а друга це індекс або час, якщо перша і є індексом 
-    if dimension == 2 and funcNum=="1":   
+    if dimension == 2 and (funcNum=="1" and typeNum!=5):   
         columns = dataFrame.columns.tolist()
         columns.append('day.month.year')
         name = inputColumnName(columns,1)
@@ -389,10 +457,47 @@ def barPlot (fig, dimension, dataFrame, dataPlot, func, col, row):
 def piePlot (fig, dimension, dataFrame, dataPlot, func, col, row):
         data = pnds.DataFrame({dataPlot[0].name: dataPlot[0], dataPlot[1].name:dataPlot[1]})
         data.reset_index(drop=True, inplace=True)
-        df = plotlyExpress.pie(data,
+        
+        
+        if func == '0':
+            data = data.groupby([dataPlot[1].name]).count()
+            df = plotlyExpress.pie(data,
                  values=dataPlot[0], names=dataPlot[1], labels={'values':dataPlot[0].name, 'names':dataPlot[1].name}).update_traces(textposition='inside', textinfo='percent+label')
             
-        df['data'][0].name = dataPlot[1].name+" / "+dataPlot[0].name
+            df['data'][0].name = dataPlot[1].name+" / "+dataPlot[0].name
+        elif func == '1':
+            data = data.groupby([dataPlot[1].name]).count()
+            print(data)
+            df = plotlyExpress.pie(data,
+                 values=data[data.columns[0]], names=data.index, labels={'values':dataPlot[0].name, 'names':dataPlot[1].name}).update_traces(textposition='inside', textinfo='percent+label')
+            
+            df['data'][0].name = dataPlot[1].name+" count / "+dataPlot[0].name
+        elif func == '2':
+            data = data.groupby([dataPlot[1].name]).mean()
+            df = plotlyExpress.pie(data,
+                 values=data[data.columns[0]], names=data.index, labels={'values':dataPlot[0].name, 'names':dataPlot[1].name}).update_traces(textposition='inside', textinfo='percent+label')
+            
+            df['data'][0].name = dataPlot[1].name+" mean / "+dataPlot[0].name
+        elif func == '3':
+            data = data.groupby([dataPlot[1].name]).max()
+            df = plotlyExpress.pie(data,
+                 values=data[data.columns[0]], names=data.index, labels={'values':dataPlot[0].name, 'names':dataPlot[1].name}).update_traces(textposition='inside', textinfo='percent+label')
+            
+            df['data'][0].name = dataPlot[1].name+" max / "+dataPlot[0].name
+        elif func == '4':
+            data = data.groupby([dataPlot[1].name]).min()
+            df = plotlyExpress.pie(data,
+                 values=data[data.columns[0]], names=data.index, labels={'values':dataPlot[0].name, 'names':dataPlot[1].name}).update_traces(textposition='inside', textinfo='percent+label')
+            
+            df['data'][0].name = dataPlot[1].name+" min / "+dataPlot[0].name
+        elif func == '5':
+            data = data.groupby([dataPlot[1].name]).median()
+            df = plotlyExpress.pie(data,
+                 values=data[data.columns[0]], names=data.index, labels={'values':dataPlot[0].name, 'names':dataPlot[1].name}).update_traces(textposition='inside', textinfo='percent+label')
+            
+            df['data'][0].name = dataPlot[1].name+" median / "+dataPlot[0].name
+            
+        
         df['data'][0].showlegend = True
         fig = fig.add_trace(df['data'][0], row=row, col=col)
         
