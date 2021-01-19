@@ -18,16 +18,25 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-def getEdges(file):
-    originalImage = cv2.imread(file,0)
+def getEdges(file, scale_percent):
+    originalImage = cv2.imread(file)
+    
+    width = int(originalImage.shape[1] * scale_percent / 100)
+    height = int(originalImage.shape[0] * scale_percent / 100)
+    dim = (width, height)
+    
+    # resize image
+    originalImage = cv2.resize(originalImage, dim, interpolation = cv2.INTER_AREA)
+
+    grayImage = cv2.cvtColor(originalImage, cv2.COLOR_BGR2GRAY)
 
 
-    f = np.fft.fft2(originalImage)
+    f = np.fft.fft2(grayImage)
     fshift = np.fft.fftshift(f)
 
-    rows, cols = originalImage.shape
+    rows, cols = grayImage.shape
     crow,ccol = int(rows/2) , int(cols/2)
-    fshift[crow-50:crow+50, ccol-50:ccol+50] = 0
+    fshift[crow-10:crow+10, ccol-10:ccol+10] = 0
     f_ishift = np.fft.ifftshift(fshift)
     img_back = np.fft.ifft2(f_ishift)
     img_back = np.abs(img_back)
@@ -36,8 +45,8 @@ def getEdges(file):
     edges = cv2.Canny(img,100,110)
     print("ROW: "+ str(rows))
     print("COL: " + str(cols))
-
-    plt.subplot(131),plt.imshow(originalImage)
+    '''
+    plt.subplot(131),plt.imshow(grayImage)
     plt.title('Input Image'), plt.xticks([]), plt.yticks([])
     plt.subplot(132),plt.imshow(img_back, cmap = 'gray')
     plt.title('Image after HPF'), plt.xticks([]), plt.yticks([])
@@ -46,7 +55,7 @@ def getEdges(file):
 
     plt.show()
 
-
+    '''
     edges = np.array(edges)
     return edges, originalImage
 
@@ -103,15 +112,23 @@ def findPos(MImage, edgesTemplate):
     for xy in dotsTemplate:
         posMatrix[xy[0]+minSumX][xy[1]+minSumY]=255
 
-    return posMatrix
+    return minSum, posMatrix
 
 
+minSum = 1000000000
+minSumPos = []
+minSumScale = 0
+for scale_percent in range(100,80,-5):
+    edgesImage, image = getEdges("image.jpg",scale_percent)
+    MImage = getM(edgesImage)
+    edgesTemplate, template = getEdges("template.png",100)
 
-edgesImage, image = getEdges("image.jpg")
-MImage = getM(edgesImage)
-edgesTemplate, template = getEdges("template.png")
+    Sum, posMatrix = findPos(MImage, edgesTemplate)
 
-posMatrix = findPos(MImage, edgesTemplate)
+    if minSum > Sum:
+        minSum = Sum
+        minSumPos = posMatrix
+        minSumScale = scale_percent
 
 
 
@@ -121,3 +138,5 @@ plt.subplot(132),plt.imshow(posMatrix, cmap = 'Greys')
 plt.title('posMatrix'), plt.xticks([]), plt.yticks([])
 
 plt.show()
+
+print("scale_percent: "+str(minSumScale))
