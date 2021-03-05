@@ -1,104 +1,110 @@
 #include <iostream>
-#include <omp.h>
-#include <math.h>
 #include <vector>
-#include <time.h>
-
-int N = 8000;
-
+#include <omp.h>
 using namespace std;
-
-vector<int> not_parallel(vector<vector<double>> mtx) {
-  vector<int> res;
-  res.resize(N);
-  double st = omp_get_wtime();
-  for (int i = 0; i < N; i++)
-  {
-    int counter = 0;
-    for (int j = 0; j < N; j++) if (mtx[i][j] < 0) counter++;
-    res[i] = counter;
-  }
-  double en = omp_get_wtime();
-  cout << "single thread:" << "[ duration: " << en - st << " seconds ]" << endl;
-  return res;
-}
-
-vector<int> parallel(vector<vector<double>> mtx, int chunk) {
-  vector<int> res;
-  res.resize(N);
-  double st = omp_get_wtime();
-# pragma omp parallel for shared(mtx) schedule(static, chunk)
-  for (int i = 0; i < N; i++)
-  {
-    int counter = 0;
-    for (int j = 0; j < N; j++) if (mtx[i][j] < 0) counter++;
-    res[i] = counter;
-  }
-  double en = omp_get_wtime();
-  cout << "parallel(static schedule, chunk=" << chunk << "):" << "[ duration: " << en - st << " seconds ]" << endl;
-
-  st = omp_get_wtime();
-# pragma omp parallel for shared(mtx) schedule(dynamic, chunk)
-  for (int i = 0; i < N; i++)
-  {
-    int counter = 0;
-    for (int j = 0; j < N; j++) if (mtx[i][j] < 0) counter++;
-    res[i] = counter;
-  }
-  en = omp_get_wtime();
-  cout << "parallel(dynamic schedule, chunk=" << chunk << "):" << "[ duration: " << en - st << " seconds ]" << endl;
-
-  return res;
-}
 
 int main()
 {
-  vector<vector<double>> A;
-  vector<vector<double>> B;
+    int n,thrNum,i, chankNum;
 
-  A.resize(N);
-  B.resize(N);
+    vector <vector<int>> A;
+    vector <vector<int>> B;
 
-  srand(time(NULL));
-  int n = 0;
-  std::cout << "Matrix\n0 -> auto generating\n1 -> manual input" << endl;
-  cin >> n;
-  switch (n) {
-  case 0:
-    std::cout << "generating..." << endl;
-# pragma omp parallel for shared(A, B)
-    for (int i = 0; i < N; i++) {
-      A[i].resize(N);
-      B[i].resize(N);
-      for (int j = 0; j < N; j++) {
-        A[i][j] = (rand() % 1000 - 1000) + (rand() % 1000);
-        B[i][j] = (rand() % 1000 - 1000) + (rand() % 1000);
-      }
+    cout << "N: " << endl;
+    cin >> n;
+    //cout << "thread num: " << endl;
+   //cin >> thrNum;
+
+    vector <int> C(n);
+    vector <int> D(n);
+
+
+    int count = 0;
+    int count1 = 0;
+
+    
+    A.resize(n);
+    B.resize(n);
+    for (i = 0; i < n; i++) {
+        A[i].resize(n);
+        B[i].resize(n);
+        for (int j = 0; j < n; j++) {
+            A[i][j] = rand() % 200 - 100;
+            B[i][j] = rand() % 200 - 100;
+        }
     }
-    break;
-  case 1:
-    std::cout << "input pairs [A element] [B element] one by one" << endl;
-    for (int i = 0; i < N; i++) {
-      A[i].resize(N);
-      B[i].resize(N);
-      for (int j = 0; j < N; j++) {
-        cin >> A[i][j];
-        cin >> B[i][j];
-      }
+
+
+    std::system("pause");
+
+    for(int thrNum = 1; thrNum <= 16; thrNum *= 2){
+        for(int chunkNum = 4; chunkNum <= 20; chunkNum += 4){
+
+            //cout << "thrNum: "<< thrNum<< " chunk: "<< chunkNum << endl;
+
+
+           // cout << "Dynamic" << endl;
+
+            double start = omp_get_wtime();
+            #pragma omp parallel num_threads(thrNum) shared(i) shared(n) private(count) private(count1)
+                {
+                #pragma omp for schedule(dynamic, chunkNum)
+                for (i = 0; i < n; i++) {
+                    count = 0;
+                   // cout << "inter: " <<i << "thr: " << omp_get_thread_num()<< endl;
+                    for (int j = 0; j < n; j++) {                    
+                        if (A[i][j] < 10 && A[i][j] > -10) {
+                            count++;
+                        }
+                        if (B[i][j] < 10 && B[i][j] > -10) {
+                            count1++;
+                        }
+                    }
+                    C[i] = count;
+                    D[i] = count1;
+                }
+            }
+            double end = omp_get_wtime();
+
+            for (i = 0; i < n; i++) {
+           // cout << C[i]; 
+            }
+            //cout << endl;
+            //cout << "t = " << end - start << endl;
+            cout << end - start << endl;
+
+
+
+            //cout << "Guided" << endl;
+            i=0;
+
+            double start1 = omp_get_wtime();
+            #pragma omp parallel num_threads(thrNum) shared(i) shared(n) private(count) private(count1)
+                {
+            #pragma omp for schedule(guided, chunkNum)
+                for(i = 0;i < n; i++){
+                  //  cout << "inter: " <<i << "   thr: " << omp_get_thread_num()<< endl;
+                    for (int j = 0; j < n; j++) {
+                        if (A[i][j] < 10 && A[i][j] > -10) {
+                            count++;
+                        }
+                        if (B[i][j] < 10 && B[i][j] > -10) {
+                            count1++;
+                        }
+                    }
+                    C[i] = count;
+                    D[i] = count1;
+                }
+            }        
+            double end1 = omp_get_wtime();
+
+            for (i = 0; i < n; i++) {
+            //    cout << C[i]; 
+            }
+            //cout << endl;
+            //cout << "t = " << end1 - start1 << endl;
+            cout << end1 - start1 << endl;
+        }
     }
-    break;
-  }
-
-  std::cout << "matrix A and B generated" << endl;
-  std::system("pause");
-
-  vector<int> C = not_parallel(A);
-  vector<int> D = not_parallel(B);
-
-  for (int chunk = 4; chunk <= 32; chunk += 4) {
-    C = parallel(A, chunk);
-    D = parallel(B, chunk);
-    cout << endl;
-  };
-
+    
 }
