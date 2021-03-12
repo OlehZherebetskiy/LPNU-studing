@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.sass": "sass",
+        "functional": "cpp",
+        "fstream": "cpp",
+        "cmath": "cpp",
+        "random": "cpp"
+    }
+}
